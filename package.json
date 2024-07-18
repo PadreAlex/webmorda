@@ -1,8 +1,11 @@
 {
   "name": "webmorda",
   "version": "0.1.0",
-  "private": true,
+  "homepage": "https://PadreAlex.github.io/webmorda",
+  "private": false,
   "dependencies": {
+    "@table-library/react-table-library": "^4.1.7",
+    "@tanstack/react-table": "^8.19.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -11,14 +14,19 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "react": "^18.3.1",
+    "react-burger-menu": "^3.0.9",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.24.0",
     "react-scripts": "5.0.1",
+    "react-table": "^7.8.0",
+    "reactjs-popup": "^2.0.6",
     "styled-components": "^6.1.11",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -43,7 +51,11 @@
     ]
   },
   "devDependencies": {
+    "@types/react-burger-menu": "^2.8.7",
+    "@types/react-table": "^7.7.20",
     "css-loader": "^7.1.2",
-    "style-loader": "^4.0.0"
+    "gh-pages": "^6.1.1",
+    "style-loader": "^4.0.0",
+    "tailwindcss": "^3.4.4"
   }
 }

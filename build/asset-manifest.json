@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/webmorda/static/css/main.5c0b7da0.css",
+    "main.js": "/webmorda/static/js/main.3f758eee.js",
+    "static/js/453.0e8c9bfc.chunk.js": "/webmorda/static/js/453.0e8c9bfc.chunk.js",
+    "index.html": "/webmorda/index.html",
+    "main.5c0b7da0.css.map": "/webmorda/static/css/main.5c0b7da0.css.map",
+    "main.3f758eee.js.map": "/webmorda/static/js/main.3f758eee.js.map",
+    "453.0e8c9bfc.chunk.js.map": "/webmorda/static/js/453.0e8c9bfc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5c0b7da0.css",
+    "static/js/main.3f758eee.js"
+  ]
+}

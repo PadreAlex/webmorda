@@ -1,13 +1,77 @@
+@tailwind components;
+@tailwind utilities;
+
+html,
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @apply m-0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#App {
+  @apply h-screen;
+  font-family: sans-serif;
+}
+
+.bm-item {
+  @apply inline-block no-underline text-[#d1d1d1] transition-[color] duration-[0.2s] mb-2.5 hover:text-[white];
+
+  /* Our sidebar item styling */
+}
+
+.bm-burger-button {
+  @apply fixed w-9 h-[30px] right-9 top-9;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  @apply h-6 w-6;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  @apply text-[1.15em] pt-[2.5em] pb-0 px-[1.5em];
+  background: #000;
+}
+
+/* .bm-menu-wrap {
+  @apply fixed z-[1100] w-[30vw] h-full transition-all duration-[0.5s] ease-[ease] delay-[0s] right-[inherit];
+} */
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  @apply fill-[#373a47];
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  @apply text-[#b8b7ad];
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+
+table {
+  @apply rounded-[20px] shadow-[5px_10px_10px];
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+table tr:last-child td:first-child {
+  @apply rounded-bl-[10px];
+}
+
+table tr:last-child td:last-child {
+  @apply rounded-br-[10px];
 }
