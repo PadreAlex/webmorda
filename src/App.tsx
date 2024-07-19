@@ -5,15 +5,15 @@ import Pairs from "./pages/bots/pairs";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/*",
     element: <Login />,
   },
   {
-    path: "/users",
+    path: "/*/users",
     element: <Users />
   },
   {
-    path: "/pairs",
+    path: "/*/pairs",
     element: <Pairs />
   },
 ]);
