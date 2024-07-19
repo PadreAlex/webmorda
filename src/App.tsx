@@ -1,9 +1,9 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/login/login";
 import Users from "./pages/users/users";
 import Pairs from "./pages/bots/pairs";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/*",
     element: <Login />,
