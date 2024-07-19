@@ -33,7 +33,7 @@ const InnerLiquidSettings: React.FC<TradingSettingsProps> = (props) => {
 
   return (
     <div style={{
-        display: props.visState ? "contents" : 'none'
+        display: props.visState ? "flex" : 'none'
     }}>
       <div
         className="cursor-pointer"
