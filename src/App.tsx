@@ -9,11 +9,11 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/*/users",
+    path: "/webmorda/users",
     element: <Users />
   },
   {
-    path: "/*/pairs",
+    path: "/webmorda/pairs",
     element: <Pairs />
   },
 ]);
