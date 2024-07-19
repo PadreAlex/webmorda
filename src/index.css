@@ -75,3 +75,7 @@ table tr:last-child td:first-child {
 table tr:last-child td:last-child {
   @apply rounded-br-[10px];
 }
+
+.custom_button {
+  @apply cursor-pointer text-white text-base uppercase w-20 ml-[-5px] mt-2.5 px-0 py-2.5 rounded-[5px] border-0;
+}
