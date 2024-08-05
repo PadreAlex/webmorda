@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import InnerLiquidSettings from "./innerLiquidSettings";
+import { convertMMSettings } from "../../helpers/convertInnerMMSettings";
 
 export type skipMode = "buy" | "sell" | "both";
-export interface MMSettings {
+export interface MMSettingsAdminConnection {
   id: number;
   manager_id: number;
   on_off_bot: boolean;
@@ -10,6 +11,9 @@ export interface MMSettings {
   open_key: string;
   private_key: string;
   password: string;
+}
+
+export interface MMSettingsSettings {
   mindif: number;
   spread_mindif: number;
   dont_trade_price_max: number;
@@ -27,20 +31,30 @@ export interface MMSettings {
   min_exchange_amount: number;
   dont_check_amount: number;
   is_reverse_on: boolean;
+  restart_after_stop: boolean;
+}
+
+export interface MMSettingsSpread {
   is_spread_skip_on: boolean;
   spread_skip_sell_one: number;
   spread_skip_sell_sum: number;
   spread_skip_buy_one: number;
   spread_skip_buy_sum: number;
-  spread_skip_mode: skipMode;
+  spread_skip_mode: string;
   spread_skip_sell_skipped_amount: number;
   spread_skip_buy_skipped_amount: number;
+}
+export interface MMSettingsVolume {
   volume_increasing_ratio: number;
   alternative_account_trading_mode: boolean;
   cancel_tail_orders: boolean;
+}
+export interface MMSettingsSuperAdmin {
   alternative_account_open_key: string;
   alternative_account_private_key: string;
   alternative_account_pair: string;
+}
+export interface MMSettingsDynamicBook {
   dynamic_order_book_is_on: boolean;
   dynamic_order_book_mode: string;
   dynamic_order_book_end_sell: number;
@@ -57,7 +71,14 @@ export interface MMSettings {
   dynamic_order_book_count_of_orders_buy: number;
   dynamic_order_book_pause_between_orders_buy: number;
   dynamic_order_book_pause_between_cycles_buy: number;
-  restart_after_stop: boolean;
+}
+export interface MMSettings {
+  connectionSettings: MMSettingsAdminConnection;
+  mmSettings: MMSettingsSettings;
+  spread: MMSettingsSpread;
+  volumes: MMSettingsVolume;
+  alternativeAccess: MMSettingsSuperAdmin;
+  dynamicBook: MMSettingsDynamicBook;
 }
 
 const testData = {
@@ -115,11 +136,11 @@ const InnerMMSettings: React.FC<SettingsProps> = (props) => {
   const [isMMVisible, setMMVisible] = useState(false);
   const [isLiquidVisible, setLiquidVisible] = useState(false);
 
-  const formFields = Object.entries(props.data).map(([key, value]) => ({
-    label: key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-    value,
-    id: key,
-  }));
+  const user = {
+    admin: false,
+  };
+
+  const customForm = convertMMSettings(props.data);
 
   return (
     <div
@@ -200,29 +221,48 @@ const InnerMMSettings: React.FC<SettingsProps> = (props) => {
           display: isMMVisible ? "grid" : "none",
         }}
       >
-        {formFields.map((field, index) => (
-          <div key={index} style={inputContainerStyle}>
-            <label htmlFor={field.id}>{field.label}</label>
-            {field.id === "spread_skip_mode" ? (
-              <select id={field.id} value={field.value}>
-                <option value="buy">Buy</option>
-                <option value="sell">Sell</option>
-                <option value="both">Both</option>
-              </select>
-            ) : (
-              <input
-                type={typeof field.value === "boolean" ? "checkbox" : "text"}
-                id={field.id}
-                value={
-                  typeof field.value === "boolean" ? undefined : field.value
-                }
-                checked={
-                  typeof field.value === "boolean" ? field.value : undefined
-                }
-              />
-            )}
-          </div>
-        ))}
+        <form>
+          {customForm.map((section, sectionIndex) => (
+            <div
+              style={
+                (section.isAdmin && user.admin) ||
+                (!section.isAdmin && !user.admin) || (!section.isAdmin && user.admin)
+                  ? {}
+                  : { display: "none" }
+              }
+              key={sectionIndex}
+            >
+              <h3>{section.section}</h3>
+              {section.fields.map((field, index) => (
+                <div key={index} style={inputContainerStyle}>
+                  <label htmlFor={field.id}>{field.label}</label>
+                  {field.type === "select" ? (
+                    <select id={field.id} defaultValue={field.value as string}>
+                      <option value="buy">Buy</option>
+                      <option value="sell">Sell</option>
+                      <option value="both">Both</option>
+                    </select>
+                  ) : (
+                    <input
+                      type={field.type}
+                      id={field.id}
+                      defaultValue={
+                        field.type === "checkbox"
+                          ? undefined
+                          : (field.value as string | number)
+                      }
+                      defaultChecked={
+                        field.type === "checkbox"
+                          ? (field.value as boolean)
+                          : undefined
+                      }
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          ))}
+        </form>
       </form>
 
       <div
@@ -246,7 +286,7 @@ const InnerMMSettings: React.FC<SettingsProps> = (props) => {
                 border: "1px black solid",
               }}
             >
-              <div>Pair: {props.data.pair}</div>
+              <div>Pair: {props.data.mmSettings.pair}</div>
               <div>amount: {data.amount}</div>
               <div>side: {data.side}</div>
               <div>price: {data.price}</div>
